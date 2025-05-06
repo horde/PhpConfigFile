@@ -1,1 +1,13 @@
 ---
+0.0.1-alpha2:
+  api: 0.0.1-alpha1
+  state:
+    release: true
+    api: true
+  date: 2025-05-06
+  license:
+    identifier: LGPL-2.1-only
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    fix: Add missing changelog file
+    feat: Initial draft of a standalone PHP-Format Config File reader and writer

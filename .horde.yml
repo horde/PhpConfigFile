@@ -2,8 +2,7 @@
 id: phpconfigfile
 name: PhpConfigFile
 full: Read and write config files as PHP Code
-description: >-
-  PHP 8 style wrappers for reading and writing config files
+description: PHP 8 style wrappers for reading and writing config files
 list: horde
 type: library
 authors:
@@ -14,7 +13,7 @@ authors:
     active: true
     role: contributor
 version:
-  release: 0.0.1alpha1
+  release: 0.0.1-alpha2
   api: 0.0.1alpha1
 state:
   release: alpha

@@ -1,24 +1,41 @@
 {
     "name": "horde/phpconfigfile",
+    "description": "Read and write config files as PHP Code",
     "type": "library",
-    "license": "LGPL-2.1",
-    "autoload": {
-        "psr-4": {
-            "Horde\\PhpConfigFile\\": "src/"
-        }
-    },
+    "homepage": "https://www.horde.org",
+    "license": "LGPL-2.1-only",
     "authors": [
         {
             "name": "Ralf Lang",
-            "email": "ralf.lang@ralf-lang.de"
+            "email": "ralf.lang@ralf-lang.de",
+            "role": "contributor"
         }
     ],
-    "minimum-stability": "dev",
+    "time": "2025-05-06",
+    "repositories": [],
     "require": {
+        "php": "^8.3",
+        "horde/http": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^12",
         "friendsofphp/php-cs-fixer": "^3",
         "phpstan/phpstan": "^2"
+    },
+    "suggest": {},
+    "autoload": {
+        "psr-4": {
+            "Horde\\PhpConfigFile\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Horde\\PhpConfigFile\\Test\\": "test/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "horde/horde-installer-plugin": true
+        }
     }
 }
