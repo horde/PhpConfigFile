@@ -49,7 +49,7 @@ class PhpConfigFileTest extends TestCase
 
     }
 
-    public function testReadConfigFileIgnoringBeforeHeaderAndAfterFooter():void
+    public function testReadConfigFileIgnoringBeforeHeaderAndAfterFooter(): void
     {
         $file = new PhpConfigFile(
             configFilePath: __DIR__ . '/../fixtures/WithPreHeaderAndPostFooterContent.php',
@@ -64,7 +64,7 @@ class PhpConfigFileTest extends TestCase
         $this->assertEquals('not you the other one', $betweenContent['you'], 'Variable you not found in content');
         $this->assertEquals('set', $betweenContent['something'], 'Variable something overwritten by footer in content');
         $this->assertArrayNotHasKey('me', $betweenContent, 'Variable me found in content but only exists before header and after footer');
-        
+
     }
 
     public function testNestedModernArrayFormat(): void
@@ -74,9 +74,7 @@ class PhpConfigFileTest extends TestCase
         );
         $file->readConfigFile();
         $allContent = $file->parseContent();
-        // @phpstan-ignore-next-line
         $this->assertNotEmpty($allContent['config']['key3']['subkey1']);
-        // @phpstan-ignore-next-line
         $this->assertEquals('subsubvalue1', $allContent['config']['key3']['subkey2']['subsubkey1']);
     }
 
@@ -87,9 +85,7 @@ class PhpConfigFileTest extends TestCase
         );
         $file->readConfigFile();
         $allContent = $file->parseContent();
-        // @phpstan-ignore-next-line
         $this->assertNotEmpty($allContent['conf']['sql']['hostspec']);
-        // @phpstan-ignore-next-line
         $this->assertTrue($allContent['conf']['readwritesplit']);
     }
 
@@ -102,7 +98,7 @@ class PhpConfigFileTest extends TestCase
         );
         $file->writeConfigFile([]);
         $this->assertFileExists('deleteme');
-        $contentString = (string)file_get_contents('deleteme');
+        $contentString = (string) file_get_contents('deleteme');
         $this->assertStringContainsString('/* Begin */', $contentString, 'Header not found');
         $this->assertStringContainsString('/* End */', $contentString, 'Footer not found');
         $contentValues = $file->parseContent();

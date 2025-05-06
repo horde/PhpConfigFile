@@ -7,6 +7,7 @@ namespace Horde\PhpConfigFile;
 use Stringable;
 use RuntimeException;
 use InvalidArgumentException;
+
 use function file_exists;
 use function file_get_contents;
 use function file_put_contents;
@@ -58,10 +59,10 @@ class PhpConfigFile
     public function readConfigFile(): self
     {
         // Read the config file and parse it into an array
-        if (!file_exists((string)$this->configFilePath)) {
+        if (!file_exists((string) $this->configFilePath)) {
             throw new RuntimeException("Config file does not exist: {$this->configFilePath}");
         }
-        $configContent = file_get_contents((string)$this->configFilePath);
+        $configContent = file_get_contents((string) $this->configFilePath);
         if ($configContent === false) {
             throw new RuntimeException("Failed to read config file: {$this->configFilePath}");
         }
@@ -76,24 +77,24 @@ class PhpConfigFile
         }
         $this->content = $configContent;
         // Get everything before $header
-        $headerStartPos = strpos($configContent, (string)$this->header);
+        $headerStartPos = strpos($configContent, (string) $this->header);
         $headerEndPos = 0;
         $this->contentBeforeHeader = '';
         if ($headerStartPos === false) {
             $headerStartPos = 0;
         } else {
-            $headerEndPos = $headerStartPos + strlen((string)$this->header);
+            $headerEndPos = $headerStartPos + strlen((string) $this->header);
             $this->contentBeforeHeader = substr($configContent, 0, $headerStartPos);
         }
 
         // Get everything after $footer
-        $footerStartPos = strpos($configContent, (string)$this->footer);
+        $footerStartPos = strpos($configContent, (string) $this->footer);
         if ($footerStartPos === false) {
             $this->contentAfterFooter = '';
             $footerStartPos = strlen($configContent);
             $footerEndPos = $footerStartPos;
         } else {
-            $footerEndPos = $footerStartPos + strlen((string)$this->footer);
+            $footerEndPos = $footerStartPos + strlen((string) $this->footer);
             $this->contentAfterFooter = substr($configContent, $footerEndPos);
         }
         $this->contentBetweenHeaderAndFooter = substr($configContent, $headerEndPos, $footerStartPos - $headerEndPos);
@@ -145,7 +146,7 @@ class PhpConfigFile
         $this->footer . "\n" .
         $this->contentAfterFooter;
         // Write the content back to the file
-        file_put_contents((string)$this->configFilePath, $configContent);
+        file_put_contents((string) $this->configFilePath, $configContent);
         return $this;
     }
 }
