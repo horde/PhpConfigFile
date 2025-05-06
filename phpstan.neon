@@ -1,7 +1,4 @@
 parameters:
-  ignoreErrors:
-    - "#Cannot access offset '.*' on mixed#"
-
   level: 5
   errorFormat: github
   treatPhpDocTypesAsCertain: false
