@@ -13,7 +13,7 @@ use Stringable;
  */
 class PhpConfigFileTest extends TestCase
 {
-    public function testReadEmptyConfigFile()
+    public function testReadEmptyConfigFile(): void
     {
         $file = new PhpConfigFile(
             configFilePath: __DIR__ . '/../fixtures/EmptyConfigFile.php',
@@ -23,7 +23,7 @@ class PhpConfigFileTest extends TestCase
         $this->assertEquals('', $file->getContent());
     }
 
-    public function testReadEmptyConfigFileWithComment()
+    public function testReadEmptyConfigFileWithComment(): void
     {
         $file = new PhpConfigFile(
             configFilePath: __DIR__ . '/../fixtures/EmptyConfigFileWithComment.php',
@@ -32,7 +32,7 @@ class PhpConfigFileTest extends TestCase
         $this->assertEquals('// To be done', $file->getContent());
     }
 
-    public function testReadConfigFileDefaultsAndOverridesWorkAsExpected()
+    public function testReadConfigFileDefaultsAndOverridesWorkAsExpected(): void
     {
         $file = new PhpConfigFile(
             configFilePath: __DIR__ . '/../fixtures/WithPreHeaderAndPostFooterContent.php',
@@ -49,7 +49,7 @@ class PhpConfigFileTest extends TestCase
 
     }
 
-    public function testReadConfigFileIgnoringBeforeHeaderAndAfterFooter()
+    public function testReadConfigFileIgnoringBeforeHeaderAndAfterFooter():void
     {
         $file = new PhpConfigFile(
             configFilePath: __DIR__ . '/../fixtures/WithPreHeaderAndPostFooterContent.php',
@@ -67,29 +67,33 @@ class PhpConfigFileTest extends TestCase
         
     }
 
-    public function testNestedModernArrayFormat()
+    public function testNestedModernArrayFormat(): void
     {
         $file = new PhpConfigFile(
             configFilePath: __DIR__ . '/../fixtures/NestedModernArrayFormat.php',
         );
         $file->readConfigFile();
         $allContent = $file->parseContent();
+        // @phpstan-ignore-next-line
         $this->assertNotEmpty($allContent['config']['key3']['subkey1']);
+        // @phpstan-ignore-next-line
         $this->assertEquals('subsubvalue1', $allContent['config']['key3']['subkey2']['subsubkey1']);
     }
 
-    public function testClassicHordeFormat()
+    public function testClassicHordeFormat(): void
     {
         $file = new PhpConfigFile(
             configFilePath: __DIR__ . '/../fixtures/ClassicHordeFormat.php',
         );
         $file->readConfigFile();
         $allContent = $file->parseContent();
+        // @phpstan-ignore-next-line
         $this->assertNotEmpty($allContent['conf']['sql']['hostspec']);
+        // @phpstan-ignore-next-line
         $this->assertTrue($allContent['conf']['readwritesplit']);
     }
 
-    public function testWriteEmptyFileWithHeaderAndFooter()
+    public function testWriteEmptyFileWithHeaderAndFooter(): void
     {
         $file = new PhpConfigFile(
             configFilePath: 'deleteme',
@@ -98,7 +102,7 @@ class PhpConfigFileTest extends TestCase
         );
         $file->writeConfigFile([]);
         $this->assertFileExists('deleteme');
-        $contentString = file_get_contents('deleteme');
+        $contentString = (string)file_get_contents('deleteme');
         $this->assertStringContainsString('/* Begin */', $contentString, 'Header not found');
         $this->assertStringContainsString('/* End */', $contentString, 'Footer not found');
         $contentValues = $file->parseContent();
@@ -106,7 +110,7 @@ class PhpConfigFileTest extends TestCase
         unlink('deleteme');
     }
 
-    public function testWriteFailure()
+    public function testReadFailure(): void
     {
         $this->expectException(\RuntimeException::class);
         $file = new PhpConfigFile(
