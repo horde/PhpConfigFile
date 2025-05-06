@@ -1,8 +1,7 @@
 <?php
-$potentialDirs = ['/lib', '/src', '/test'];
+$potentialDirs = ['/lib', '/src', '/test', '/tests'];
 
 $finder = (new PhpCsFixer\Finder());
-
 foreach ($potentialDirs as $dir) {
     $full = __DIR__ . $dir;
     if (is_dir($full)) {
@@ -10,6 +9,7 @@ foreach ($potentialDirs as $dir) {
     }
 }
 
+$finder->exclude(['fixtures']);
 
 return (new PhpCsFixer\Config())
     ->setRules([
