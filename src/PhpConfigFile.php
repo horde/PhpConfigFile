@@ -17,7 +17,6 @@ use function str_starts_with;
 use function trim;
 use function ltrim;
 use function get_defined_vars;
-use function eval;
 use function var_export;
 use function in_array;
 
@@ -56,15 +55,15 @@ class PhpConfigFile
         return $this->contentBetweenHeaderAndFooter;
     }
 
-    public function readConfigFile()
+    public function readConfigFile(): self
     {
         // Read the config file and parse it into an array
-        if (!file_exists($this->configFilePath)) {
-            throw new \RuntimeException("Config file does not exist: {$this->configFilePath}");
+        if (!file_exists((string)$this->configFilePath)) {
+            throw new RuntimeException("Config file does not exist: {$this->configFilePath}");
         }
-        $configContent = file_get_contents($this->configFilePath);
+        $configContent = file_get_contents((string)$this->configFilePath);
         if ($configContent === false) {
-            throw new \RuntimeException("Failed to read config file: {$this->configFilePath}");
+            throw new RuntimeException("Failed to read config file: {$this->configFilePath}");
         }
         // Strip leading and trailing php tags
         $configContent = trim($configContent);
@@ -77,31 +76,37 @@ class PhpConfigFile
         }
         $this->content = $configContent;
         // Get everything before $header
-        $headerStartPos = strpos($configContent, $this->header);
+        $headerStartPos = strpos($configContent, (string)$this->header);
         $headerEndPos = 0;
         $this->contentBeforeHeader = '';
         if ($headerStartPos === false) {
             $headerStartPos = 0;
         } else {
-            $headerEndPos = $headerStartPos + strlen($this->header);
+            $headerEndPos = $headerStartPos + strlen((string)$this->header);
             $this->contentBeforeHeader = substr($configContent, 0, $headerStartPos);
         }
 
         // Get everything after $footer
-        $footerStartPos = strpos($configContent, $this->footer);
+        $footerStartPos = strpos($configContent, (string)$this->footer);
         if ($footerStartPos === false) {
             $this->contentAfterFooter = '';
             $footerStartPos = strlen($configContent);
             $footerEndPos = $footerStartPos;
         } else {
-            $footerEndPos = $footerStartPos + strlen($this->footer);
+            $footerEndPos = $footerStartPos + strlen((string)$this->footer);
             $this->contentAfterFooter = substr($configContent, $footerEndPos);
         }
         $this->contentBetweenHeaderAndFooter = substr($configContent, $headerEndPos, $footerStartPos - $headerEndPos);
         // Parse the content into an array (assuming it's a PHP array)
+        return $this;
     }
 
-
+    /**
+     * Parse the content between the header and footer into an array
+     * @param string $area The area to parse from. Can be 'contentBetweenHeaderAndFooter', 'contentBeforeHeader', 'contentAfterFooter', or 'content'.
+     * @return array<mixed> The parsed content as an array
+     * @throws InvalidArgumentException If the area is invalid
+     */
     public function parseContent(string $area = 'content'): array
     {
         // TODO: Ensure to prevent any output from eval
@@ -117,7 +122,12 @@ class PhpConfigFile
         throw new \InvalidArgumentException("Invalid area to parse from: $area");
     }
 
-    public function writeConfigFile(array $config): void
+    /**
+     * Write the config file with the given array
+     * @param array<mixed> $config The config array to write
+     * @return self
+     */
+    public function writeConfigFile(array $config): self
     {
         // Convert the array back to a string
         $configContent = "<?php\n" .
@@ -135,6 +145,7 @@ class PhpConfigFile
         $this->footer . "\n" .
         $this->contentAfterFooter;
         // Write the content back to the file
-        file_put_contents($this->configFilePath, $configContent);
+        file_put_contents((string)$this->configFilePath, $configContent);
+        return $this;
     }
 }
