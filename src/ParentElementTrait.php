@@ -17,6 +17,14 @@ trait ParentElementTrait
         return $this->children;
     }
 
+    public function getChild(string $name): ?ConfigurationElement
+    {
+        if (isset($this->children[$name])) {
+            return $this->children[$name];
+        }
+        return null;
+    }
+
     public function getParent(): ?ParentElement
     {
         // Parent elements do not have a parent in the same way leaf elements do.
@@ -25,7 +33,7 @@ trait ParentElementTrait
 
     public function addChild(ConfigurationElement $child): void
     {
-        $this->children[] = $child;
+        $this->children[$child->getName()] = $child;
     }
 
     public function addChildren(ConfigurationElement ...$children): void

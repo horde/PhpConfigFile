@@ -7,10 +7,8 @@ namespace Horde\PhpConfigFile\Test\Unit;
 use Horde\PhpConfigFile\PhpConfigFile;
 use PHPUnit\Framework\TestCase;
 use Stringable;
-
-/**
- * @coversNothing
- */
+use PHPUnit\Framework\Attributes\CoversNothing;
+#[CoversNothing]
 class PhpConfigFileTest extends TestCase
 {
     public function testReadEmptyConfigFile(): void

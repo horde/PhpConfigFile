@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Horde\PhpConfigFile;
 
 use InvalidArgumentException;
-use PSpell\Config;
 
 /**
  * ConfigurationSchema root class for Horde PhpConfigFile.
@@ -19,7 +18,6 @@ class ConfigurationSchema implements ParentElement
     public function __construct(
         /** The name of the root element, defaults to 'root'. */
         public readonly string $name = 'root',
-        public readonly ?ConfigurationElement $parent = null,
         public readonly bool $omitRootKey = true
     ) {
         if ($this->parent) {
@@ -54,6 +52,6 @@ class ConfigurationSchema implements ParentElement
      */
     public function isSerializable(): bool
     {
-        return false;
+        return true;
     }
 }
