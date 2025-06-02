@@ -1,6 +1,6 @@
 # horde/phpconfigfile
 
-Read and write PHP config files with array or primitives data.
+Read and write PHP config files with array or primitives data. Provide building blocks for a PHP native schema definition.
 
 ## Supported formats
 
@@ -51,3 +51,17 @@ $initial_application_page = 'News';
 ## Usage
 
 See Unit Tests
+
+## Schema Definition
+
+Applications have expectations with regards to PHP config files but free form PHP allows to undermine these expectations.
+The ConfigurationSchema classes provide building blocks for 
+- Rendering defaults into a new or incomplete configuration file
+- generating UIs from Code without external schema languages like XML, Yaml, etc
+- versioning and upgrading configuration files in a defined fashion.
+
+Schema definitions always begin with a root element ConfigurationSchema.
+Every subsequent element is either a LeafElement or a ParentElement.
+LeafElements hold primitive values such as integer, string, float, boolean or null.
+A special type of leaf elements are void elements which do not emit anything to the configuration file but provide metadata for display in a UI assembled from the schema.
+ParentElements hold levels of array keys
