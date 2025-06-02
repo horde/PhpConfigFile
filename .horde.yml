@@ -24,8 +24,6 @@ license:
 dependencies:
   required:
     php: ^8.3
-    composer:
-      horde/http: '*'
   dev:
     composer:
       phpunit/phpunit: ^12
