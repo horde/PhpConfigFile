@@ -1,4 +1,19 @@
 ---
+0.0.1-alpha5:
+  api: 0.0.1-alpha5
+  state:
+    release: alpha
+    api: alpha
+  date: 2026-03-07
+  license:
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: |-
+    feat(deps): support PHPUnit 11 and 12
+    fix(deps): lower PHP version requirement from 8.3 to 8.1
+    Drop unnecessary dependency on horde/http
+    chore: Add more tests for ConfigurationSchema
+    feat: Foundation for a php native configuration schema without XML.
 0.0.1-alpha4:
   api: 0.0.1-alpha1
   state:
