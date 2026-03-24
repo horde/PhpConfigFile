@@ -115,6 +115,16 @@ class PhpConfigFile
             // Don't pollute the namespace
             $this->untrustedContent = $this->{$area};
             unset($area);
+
+            // Set up safe defaults for CLI context to prevent undefined key warnings
+            if (PHP_SAPI === 'cli' || PHP_SAPI === 'phpdbg') {
+                // Preserve existing $_SERVER values but provide safe defaults for missing keys
+                $_SERVER['SERVER_NAME'] = $_SERVER['SERVER_NAME'] ?? 'localhost';
+                $_SERVER['HTTP_HOST'] = $_SERVER['HTTP_HOST'] ?? 'localhost';
+                $_SERVER['REQUEST_URI'] = $_SERVER['REQUEST_URI'] ?? '/';
+                $_SERVER['REMOTE_ADDR'] = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+            }
+
             eval($this->untrustedContent);
             $res = get_defined_vars();
             $this->untrustedContent = '';
