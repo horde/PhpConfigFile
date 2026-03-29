@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Horde\PhpConfigFile;
 
+use Horde\PhpConfigFile\Formatter\ModernArrayFormatter;
 use Stringable;
 use RuntimeException;
 use InvalidArgumentException;
@@ -18,7 +19,6 @@ use function str_starts_with;
 use function trim;
 use function ltrim;
 use function get_defined_vars;
-use function var_export;
 use function in_array;
 
 /**
@@ -32,12 +32,16 @@ class PhpConfigFile
     private string $contentBetweenHeaderAndFooter = '';
     private string $content = '';
     private string $untrustedContent = '';
+    private ?ConfigFormatterInterface $defaultFormatter = null;
 
     public function __construct(
         public readonly string|Stringable $configFilePath,
         public readonly string|Stringable $header = '/* This file is auto-generated. Do not edit anything below this line! */',
         public readonly string|Stringable $footer = '/* This file is auto-generated. Do not edit anything above this line! */',
-    ) {}
+        ?ConfigFormatterInterface $formatter = null,
+    ) {
+        $this->defaultFormatter = $formatter;
+    }
 
     public function getContent(): string
     {
@@ -136,25 +140,25 @@ class PhpConfigFile
     /**
      * Write the config file with the given array
      * @param array<mixed> $config The config array to write
+     * @param ConfigFormatterInterface|null $formatter Optional formatter override
      * @return self
      */
-    public function writeConfigFile(array $config): self
+    public function writeConfigFile(array $config, ?ConfigFormatterInterface $formatter = null): self
     {
+        // Determine which formatter to use (priority: parameter > constructor > default)
+        $activeFormatter = $formatter
+            ?? $this->defaultFormatter
+            ?? new ModernArrayFormatter();
+
         // Convert the array back to a string
         $configContent = "<?php\n" .
         $this->contentBeforeHeader . "\n" .
-        $this->header . "\n";
-        foreach ($config as $key => $value) {
-            if (is_array($value)) {
-                $configContent .= '$' . $key . ' = ' . var_export($value, true) . ";\n";
-            } else {
-                $configContent .= '$' . $key . ' = \'' . $value . "';\n";
-            }
-        }
-        $configContent .= "\n" .
-
+        $this->header . "\n" .
+        $activeFormatter->format($config) .
+        "\n" .
         $this->footer . "\n" .
         $this->contentAfterFooter;
+
         // Write the content back to the file
         file_put_contents((string) $this->configFilePath, $configContent);
         return $this;
