@@ -32,3 +32,8 @@ dependencies:
 nocommands:
   - bin/demo-client.php
 vendor: horde
+keywords: []
+
+quality:
+  phpstan:
+    level: 5
