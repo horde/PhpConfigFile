@@ -13,5 +13,3 @@ $me = 'not me';
 // Values after the footer overwrite managed content in 'content' mode. In 'contentBetweenHeaderAndFooter' mode, these vars are ignored altogether.
 $something = 'overwritten';
 $footer_only = 'footer only';
-
-?>

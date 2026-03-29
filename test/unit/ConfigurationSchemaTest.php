@@ -10,6 +10,7 @@ use Horde\PhpConfigFile\ConfigurationSchema;
 use Horde\PhpConfigFile\StringElement;
 use Horde\PhpConfigFile\IntegerElement;
 use PHPUnit\Framework\Attributes\CoversNothing;
+
 #[CoversNothing]
 class ConfigurationSchemaTest extends TestCase
 {
