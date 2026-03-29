@@ -123,10 +123,10 @@ class PhpConfigFile
             // Set up safe defaults for CLI context to prevent undefined key warnings
             if (PHP_SAPI === 'cli' || PHP_SAPI === 'phpdbg') {
                 // Preserve existing $_SERVER values but provide safe defaults for missing keys
-                $_SERVER['SERVER_NAME'] = $_SERVER['SERVER_NAME'] ?? 'localhost';
-                $_SERVER['HTTP_HOST'] = $_SERVER['HTTP_HOST'] ?? 'localhost';
-                $_SERVER['REQUEST_URI'] = $_SERVER['REQUEST_URI'] ?? '/';
-                $_SERVER['REMOTE_ADDR'] = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+                $_SERVER['SERVER_NAME'] ??= 'localhost';
+                $_SERVER['HTTP_HOST'] ??= 'localhost';
+                $_SERVER['REQUEST_URI'] ??= '/';
+                $_SERVER['REMOTE_ADDR'] ??= '127.0.0.1';
             }
 
             eval($this->untrustedContent);
@@ -151,13 +151,13 @@ class PhpConfigFile
             ?? new ModernArrayFormatter();
 
         // Convert the array back to a string
-        $configContent = "<?php\n" .
-        $this->contentBeforeHeader . "\n" .
-        $this->header . "\n" .
-        $activeFormatter->format($config) .
-        "\n" .
-        $this->footer . "\n" .
-        $this->contentAfterFooter;
+        $configContent = "<?php\n"
+        . $this->contentBeforeHeader . "\n"
+        . $this->header . "\n"
+        . $activeFormatter->format($config)
+        . "\n"
+        . $this->footer . "\n"
+        . $this->contentAfterFooter;
 
         // Write the content back to the file
         file_put_contents((string) $this->configFilePath, $configContent);
