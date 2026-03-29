@@ -201,4 +201,71 @@ class ClassicHordeFormatterTest extends TestCase
         $this->assertStringContainsString("\$conf['sql']['port'] = 3306;", $result);
         $this->assertStringContainsString("\$conf['sql']['username'] = 'horde';", $result);
     }
+
+    public function testEmptyStringValue(): void
+    {
+        $formatter = new ClassicHordeFormatter();
+        $result = $formatter->format(['conf' => ['empty' => '']]);
+        $this->assertStringContainsString("\$conf['empty'] = '';", $result);
+    }
+
+    public function testZeroIntegerValue(): void
+    {
+        $formatter = new ClassicHordeFormatter();
+        $result = $formatter->format(['conf' => ['zero' => 0]]);
+        $this->assertStringContainsString("\$conf['zero'] = 0;", $result);
+    }
+
+    public function testZeroFloatValue(): void
+    {
+        $formatter = new ClassicHordeFormatter();
+        $result = $formatter->format(['conf' => ['zero' => 0.0]]);
+        $this->assertStringContainsString("\$conf['zero'] = 0;", $result);
+    }
+
+    public function testNegativeNumbers(): void
+    {
+        $formatter = new ClassicHordeFormatter();
+        $result = $formatter->format(['conf' => ['int' => -42, 'float' => -3.14]]);
+        $this->assertStringContainsString("\$conf['float'] = -3.14;", $result);
+        $this->assertStringContainsString("\$conf['int'] = -42;", $result);
+    }
+
+    public function testUnicodeInKeys(): void
+    {
+        $formatter = new ClassicHordeFormatter();
+        $result = $formatter->format(['conf' => ['key_with_émojis_🎉' => 'value']]);
+        $this->assertStringContainsString('key_with_émojis_🎉', $result);
+    }
+
+    public function testUnicodeInValues(): void
+    {
+        $formatter = new ClassicHordeFormatter();
+        $result = $formatter->format(['conf' => ['key' => 'Héllo Wörld 🌍']]);
+        $this->assertStringContainsString('Héllo Wörld 🌍', $result);
+    }
+
+    public function testDoubleQuotesInValue(): void
+    {
+        $formatter = new ClassicHordeFormatter();
+        $result = $formatter->format(['conf' => ['key' => 'value "quoted"']]);
+        // addslashes() escapes double quotes
+        $this->assertStringContainsString('value \"quoted\"', $result);
+    }
+
+    public function testNewlineInValue(): void
+    {
+        $formatter = new ClassicHordeFormatter();
+        $result = $formatter->format(['conf' => ['key' => "line1\nline2"]]);
+        // addslashes() does NOT escape newlines - they remain literal
+        $this->assertStringContainsString("line1\nline2", $result);
+    }
+
+    public function testTabInValue(): void
+    {
+        $formatter = new ClassicHordeFormatter();
+        $result = $formatter->format(['conf' => ['key' => "col1\tcol2"]]);
+        // addslashes() does NOT escape tabs - they remain literal
+        $this->assertStringContainsString("col1\tcol2", $result);
+    }
 }

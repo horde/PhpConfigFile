@@ -7,8 +7,9 @@ namespace Horde\PhpConfigFile\Test\Unit;
 use Horde\PhpConfigFile\PhpConfigFile;
 use PHPUnit\Framework\TestCase;
 use Stringable;
-use PHPUnit\Framework\Attributes\CoversNothing;
-#[CoversNothing]
+use PHPUnit\Framework\Attributes\CoversClass;
+
+#[CoversClass(PhpConfigFile::class)]
 class PhpConfigFileTest extends TestCase
 {
     public function testReadEmptyConfigFile(): void
@@ -111,5 +112,44 @@ class PhpConfigFileTest extends TestCase
             configFilePath: 'doesnotexist',
         );
         $file->readConfigFile();
+    }
+
+    public function testParseContentWithInvalidArea(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid area to parse from');
+
+        $file = new PhpConfigFile(
+            configFilePath: __DIR__ . '/../fixtures/EmptyConfigFile.php',
+        );
+        $file->readConfigFile();
+        $file->parseContent('invalid_area');
+    }
+
+    public function testWriteWithDefaultFormatter(): void
+    {
+        $file = new PhpConfigFile('deleteme_default');
+        $file->writeConfigFile(['key' => 'value']);
+
+        $this->assertFileExists('deleteme_default');
+        $content = (string) file_get_contents('deleteme_default');
+        // Should use ModernArrayFormatter by default
+        $this->assertStringContainsString("\$key = 'value';", $content);
+        unlink('deleteme_default');
+    }
+
+    public function testGettersReturnCorrectContent(): void
+    {
+        $file = new PhpConfigFile(
+            configFilePath: __DIR__ . '/../fixtures/WithPreHeaderAndPostFooterContent.php',
+            header: '/* Begin Horde Config File - do not edit */',
+            footer: '/* End Horde Config File - do not edit */'
+        );
+        $file->readConfigFile();
+
+        $this->assertNotEmpty($file->getContent());
+        $this->assertNotEmpty($file->getContentBeforeHeader());
+        $this->assertNotEmpty($file->getContentAfterFooter());
+        $this->assertNotEmpty($file->getContentBetweenHeaderAndFooter());
     }
 }
