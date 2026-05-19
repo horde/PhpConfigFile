@@ -73,3 +73,17 @@
   notes: |
     fix: Add missing changelog file
     feat: Initial draft of a standalone PHP-Format Config File reader and writer
+0.0.1-RC1:
+  api: 0.0.1-RC1
+  state:
+    release: RC
+    api: RC
+  date: 2026-05-19
+  license:
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: |-
+    chore: Reach phpstan level 5 compatibility
+    style: php-cs-fixer
+    test: More unit tests for the ClassicFormatter
+    feat: #2 support traditional $config['file']['schema'] = 'configFileSchema';

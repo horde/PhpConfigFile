@@ -13,10 +13,10 @@ authors:
     active: true
     role: contributor
 version:
-  release: 0.0.1-beta2
+  release: 0.0.1-RC1
   api: 0.0.1alpha1
 state:
-  release: beta
+  release: RC
   api: alpha
 license:
   identifier: LGPL-2.1-only
@@ -33,7 +33,6 @@ nocommands:
   - bin/demo-client.php
 vendor: horde
 keywords: []
-
 quality:
   phpstan:
     level: 5
