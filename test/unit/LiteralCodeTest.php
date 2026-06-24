@@ -7,6 +7,7 @@ namespace Horde\PhpConfigFile\Test\Unit;
 use Horde\PhpConfigFile\LiteralCode;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
+use ReflectionClass;
 
 #[CoversClass(LiteralCode::class)]
 class LiteralCodeTest extends TestCase
@@ -38,7 +39,7 @@ class LiteralCodeTest extends TestCase
     public function testIsReadonly(): void
     {
         $literal = new LiteralCode('test');
-        $reflection = new \ReflectionClass($literal);
+        $reflection = new ReflectionClass($literal);
         $this->assertTrue($reflection->isReadOnly());
     }
 }

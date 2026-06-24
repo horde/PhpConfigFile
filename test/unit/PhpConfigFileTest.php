@@ -8,6 +8,8 @@ use Horde\PhpConfigFile\PhpConfigFile;
 use PHPUnit\Framework\TestCase;
 use Stringable;
 use PHPUnit\Framework\Attributes\CoversClass;
+use InvalidArgumentException;
+use RuntimeException;
 
 #[CoversClass(PhpConfigFile::class)]
 class PhpConfigFileTest extends TestCase
@@ -107,7 +109,7 @@ class PhpConfigFileTest extends TestCase
 
     public function testReadFailure(): void
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $file = new PhpConfigFile(
             configFilePath: 'doesnotexist',
         );
@@ -116,7 +118,7 @@ class PhpConfigFileTest extends TestCase
 
     public function testParseContentWithInvalidArea(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid area to parse from');
 
         $file = new PhpConfigFile(

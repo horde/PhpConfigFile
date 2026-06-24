@@ -134,7 +134,7 @@ class PhpConfigFile
             $this->untrustedContent = '';
             return $res;
         }
-        throw new \InvalidArgumentException("Invalid area to parse from: $area");
+        throw new InvalidArgumentException("Invalid area to parse from: $area");
     }
 
     /**
