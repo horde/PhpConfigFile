@@ -1,78 +1,14 @@
 ---
-0.0.1-beta2:
-  api: 0.0.1-beta2
+0.0.1:
+  api: 0.0.1
   state:
-    release: beta
-    api: beta
-  date: 2026-03-24
+    release: stable
+    api: stable
+  date: 2026-06-30
   license:
     identifier: LGPL-2.1-only
     uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    feat: Be more defensive about using $_SERVER variables in CLI context
-0.0.1-beta1:
-  api: 0.0.1-beta1
-  state:
-    release: beta
-    api: beta
-  date: 2026-03-24
-  license:
-    identifier: LGPL-2.1-only
-    uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    feat: Be more defensive about using $_SERVER variables in CLI context
-0.0.1-alpha5:
-  api: 0.0.1-alpha5
-  state:
-    release: alpha
-    api: alpha
-  date: 2026-03-07
-  license:
-    identifier: LGPL-2.1-only
-    uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    feat(deps): support PHPUnit 11 and 12
-    fix(deps): lower PHP version requirement from 8.3 to 8.1
-    Drop unnecessary dependency on horde/http
-    chore: Add more tests for ConfigurationSchema
-    feat: Foundation for a php native configuration schema without XML.
-0.0.1-alpha4:
-  api: 0.0.1-alpha1
-  state:
-    release: true
-    api: true
-  date: 2025-05-06
-  license:
-    identifier: LGPL-2.1-only
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    fix: Wrong Readme File
-0.0.1-alpha3:
-  api: 0.0.1-alpha1
-  state:
-    release: true
-    api: true
-  date: 2025-05-06
-  license:
-    identifier: LGPL-2.1-only
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    fix: Add .phpunit.result.cache to gitignore
-    fix: eval is not a function
-    fix: Rename mislabeled unit test and raise phpstan compliance
-    feat: Add CI stubs
-0.0.1-alpha2:
-  api: 0.0.1-alpha1
-  state:
-    release: true
-    api: true
-  date: 2025-05-06
-  license:
-    identifier: LGPL-2.1-only
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    fix: Add missing changelog file
-    feat: Initial draft of a standalone PHP-Format Config File reader and writer
+  notes: "chore: update CI\nstyle: prefer \"use\" over FQCN\nchore: Update workflow dependency"
 0.0.1-RC1:
   api: 0.0.1-RC1
   state:
@@ -82,8 +18,64 @@
   license:
     identifier: LGPL-2.1-only
     uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    chore: Reach phpstan level 5 compatibility
-    style: php-cs-fixer
-    test: More unit tests for the ClassicFormatter
-    feat: #2 support traditional $config['file']['schema'] = 'configFileSchema';
+  notes: "chore: Reach phpstan level 5 compatibility\nstyle: php-cs-fixer\ntest: More unit tests for the ClassicFormatter\nfeat: #2 support traditional $config['file']['schema'] = 'configFileSchema';"
+0.0.1-beta2:
+  api: 0.0.1-beta2
+  state:
+    release: beta
+    api: beta
+  date: 2026-03-24
+  license:
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: 'feat: Be more defensive about using $_SERVER variables in CLI context'
+0.0.1-beta1:
+  api: 0.0.1-beta1
+  state:
+    release: beta
+    api: beta
+  date: 2026-03-24
+  license:
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: 'feat: Be more defensive about using $_SERVER variables in CLI context'
+0.0.1-alpha5:
+  api: 0.0.1-alpha5
+  state:
+    release: alpha
+    api: alpha
+  date: 2026-03-07
+  license:
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: "feat(deps): support PHPUnit 11 and 12\nfix(deps): lower PHP version requirement from 8.3 to 8.1\nDrop unnecessary dependency on horde/http\nchore: Add more tests for ConfigurationSchema\nfeat: Foundation for a php native configuration schema without XML."
+0.0.1-alpha4:
+  api: 0.0.1-alpha1
+  state:
+    release: true
+    api: true
+  date: 2025-05-06
+  license:
+    identifier: LGPL-2.1-only
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "fix: Wrong Readme File\n"
+0.0.1-alpha3:
+  api: 0.0.1-alpha1
+  state:
+    release: true
+    api: true
+  date: 2025-05-06
+  license:
+    identifier: LGPL-2.1-only
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "fix: Add .phpunit.result.cache to gitignore\nfix: eval is not a function\nfix: Rename mislabeled unit test and raise phpstan compliance\nfeat: Add CI stubs\n"
+0.0.1-alpha2:
+  api: 0.0.1-alpha1
+  state:
+    release: true
+    api: true
+  date: 2025-05-06
+  license:
+    identifier: LGPL-2.1-only
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "fix: Add missing changelog file\nfeat: Initial draft of a standalone PHP-Format Config File reader and writer\n"
