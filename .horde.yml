@@ -6,8 +6,7 @@ description: PHP 8 style wrappers for reading and writing config files
 list: horde
 type: library
 authors:
-  -
-    name: Ralf Lang
+  - name: Ralf Lang
     user: rlang
     email: ralf.lang@ralf-lang.de
     active: true
@@ -36,3 +35,90 @@ keywords: []
 quality:
   phpstan:
     level: 5
+ci-platform:
+  '8.1':
+    - php: '>=5.3'
+    - ext-ctype
+    - ext-dom
+    - ext-filter
+    - ext-hash
+    - ext-iconv
+    - ext-json
+    - ext-libxml
+    - ext-mbstring
+    - ext-phar
+    - ext-tokenizer
+    - ext-xml
+    - ext-xmlwriter
+  '8.2':
+    - php: '>=5.3'
+    - ext-ctype
+    - ext-dom
+    - ext-filter
+    - ext-hash
+    - ext-iconv
+    - ext-json
+    - ext-libxml
+    - ext-mbstring
+    - ext-phar
+    - ext-tokenizer
+    - ext-xml
+    - ext-xmlwriter
+  '8.3':
+    - php: '>=5.3'
+    - ext-ctype
+    - ext-dom
+    - ext-filter
+    - ext-hash
+    - ext-iconv
+    - ext-json
+    - ext-libxml
+    - ext-mbstring
+    - ext-phar
+    - ext-tokenizer
+    - ext-xml
+    - ext-xmlwriter
+  '8.4':
+    - php: '>=5.3'
+    - ext-ctype
+    - ext-dom
+    - ext-filter
+    - ext-hash
+    - ext-iconv
+    - ext-json
+    - ext-libxml
+    - ext-mbstring
+    - ext-phar
+    - ext-tokenizer
+    - ext-xml
+    - ext-xmlwriter
+  '8.5':
+    - php: '>=5.3'
+    - ext-ctype
+    - ext-dom
+    - ext-filter
+    - ext-hash
+    - ext-iconv
+    - ext-json
+    - ext-libxml
+    - ext-mbstring
+    - ext-phar
+    - ext-tokenizer
+    - ext-xml
+    - ext-xmlwriter
+  '8.6':
+    - php: '>=5.3'
+    - ext-ctype
+    - ext-dom
+    - ext-filter
+    - ext-hash
+    - ext-iconv
+    - ext-json
+    - ext-libxml
+    - ext-mbstring
+    - ext-phar
+    - ext-tokenizer
+    - ext-xml
+    - ext-xmlwriter
+ci-platform-flags:
+  needs_installer_plugin: false
